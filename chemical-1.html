@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry M.4 Hard Mode Exam - 25 Questions</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap');
+        
+        :root {
+            --primary: #1a73e8;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --bg: #f4f7f6;
+            --text: #2c3e50;
+        }
+
+        body { 
+            font-family: 'Sarabun', sans-serif; 
+            background-color: var(--bg); 
+            margin: 0; 
+            padding: 20px; 
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container { 
+            max-width: 850px; 
+            margin: auto; 
+            background: white; 
+            padding: 40px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+        }
+
+        h1 { text-align: center; color: var(--text); border-bottom: 3px solid var(--primary); padding-bottom: 15px; }
+        
+        .header-info { text-align: center; color: #7f8c8d; margin-bottom: 30px; font-style: italic; }
+
+        .question-block { 
+            margin-bottom: 30px; 
+            padding: 20px; 
+            background: #fff; 
+            border: 1px solid #e0e0e0; 
+            border-radius: 10px; 
+            transition: all 0.2s ease;
+        }
+
+        .question-text { 
+            font-weight: 700; 
+            font-size: 1.15em; 
+            margin-bottom: 20px; 
+            display: block; 
+        }
+
+        .options { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px; 
+        }
+
+        @media (max-width: 600px) { 
+            .options { grid-template-columns: 1fr; } 
+        }
+
+        .option-btn { 
+            padding: 15px; 
+            border: 2px solid #ecf0f1; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            text-align: left; 
+            background: #fff; 
+            transition: all 0.2s; 
+            font-size: 1em;
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        .option-btn:hover { background: #f8f9fa; border-color: var(--primary); }
+
+        .correct { background-color: var(--success) !important; border-color: #27ae60 !important; color: white !important; font-weight: bold; }
+        .wrong { background-color: var(--danger) !important; border-color: #c0392b !important; color: white !important; }
+        
+        .explanation { 
+            margin-top: 20px; 
+            padding: 20px; 
+            background: #e8f4fd; 
+            border-left: 5px solid var(--primary); 
+            display: none; 
+            border-radius: 5px; 
+            font-size: 0.95em;
+        }
+
+        .disabled { pointer-events: none; opacity: 0.8; }
+        
+        .footer { text-align: center; margin-top: 40px; color: #95a5a6; font-size: 0.85em; border-top: 1px solid #eee; padding-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>ข้อสอบวิชาเคมี ม.4 (เทอม 1 และ 2)</h1>
+    <div class="header-info">จำนวน 25 ข้อ | เน้นการวิเคราะห์เชิงลึก | อ้างอิงแนวทาง A-Level</div>
+    
+    <div id="quiz-area"></div>
+
+    <div class="footer">
+        © 2026 Chemistry Comprehensive Exam Project - Verified Content
+    </div>
+</div>
+
+<script>
+const quizData = [
+    {
+        q: "1. พิจารณาธาตุสมมติ A, B และ C ในคาบเดียวกัน: A มีรัศมีอะตอมใหญ่สุด, B มี IE1 สูงสุด และ C มีอิเล็กตรอนเดี่ยวมากที่สุดใน d-orbital ข้อใดสรุปหมู่ได้ถูกต้อง?",
+        options: ["A: หมู่ 1, B: หมู่ 18, C: หมู่ 7", "A: หมู่ 18, B: หมู่ 1, C: หมู่ 5", "A: หมู่ 1, B: หมู่ 17, C: หมู่ 6", "A: หมู่ 2, B: หมู่ 18, C: หมู่ 8"],
+        ans: 0,
+        detail: "รัศมีใหญ่สุดในคาบคือหมู่ 1, IE1 สูงสุดคือหมู่ 18 (แก๊สเฉื่อย), และอิเล็กตรอนเดี่ยวใน d-orbital มากสุดคือ d5 (Transition หมู่ 7 เช่น Mn)"
+    },
+    {
+        q: "2. สารประกอบไอออนิก X2+ และ Y3- มีจุดเดือดสูงกว่า NaCl มาก ปัจจัยใดสำคัญที่สุด?",
+        options: ["รัศมีไอออน X ใหญ่กว่า Na", "ค่า EN ของ Y สูงกว่า Cl", "ผลคูณของประจุไอออน (|z+z-|) มีค่ามากกว่า", "ธาตุ X เป็นโลหะทรานซิชัน"],
+        ans: 2,
+        detail: "แรงดึงดูดแลตทิซแปรผันตามประจุ (|2x-3|=6 เทียบกับ |1x-1|=1) ประจุสูงทำให้แรงยึดเหนี่ยวแข็งแกร่งกว่ามาก"
+    },
+    {
+        q: "3. แก๊สผสม CH4 และ C3H8 หนัก 10.0 g เผาไหม้สมบูรณ์ได้ CO2 30.0 g จงหาร้อยละโดยมวลของ CH4?",
+        options: ["12.5%", "25.0%", "37.5%", "50.0%"],
+        ans: 0,
+        detail: "ใช้ปริมาณสัมพันธ์แก้สมการมวลรวมและมวล CO2 จะพบว่ามี CH4 1.25 กรัม คิดเป็น 12.5% โดยมวล"
+    },
+    {
+        q: "4. โมเลกุลใดมีรูปร่าง 'พีระมิดคู่ฐานสามเหลี่ยม' (Trigonal bipyramidal) และไม่มีอิเล็กตรอนคู่โดดเดี่ยว?",
+        options: ["SF4", "PCl5", "ClF3", "XeF2"],
+        ans: 1,
+        detail: "P (หมู่ 15) มี 5 เวเลนซ์อิเล็กตรอน สร้างพันธะเดี่ยวกับ Cl 5 ตัว ได้รูปทรง AX5 ไม่มีคู่โดดเดี่ยว"
+    },
+    {
+        q: "5. ผสม BaCl2 0.2 M (50 cm3) กับ Na2SO4 0.3 M (50 cm3) จะเกิดตะกอน BaSO4 หนักกี่กรัม? (MW=233)",
+        options: ["1.17 g", "2.33 g", "3.50 g", "4.66 g"],
+        ans: 1,
+        detail: "Ba2+ คือสารกำหนดปริมาณ (0.01 mol) เกิดตะกอน 0.01 x 233 = 2.33 g"
+    },
+    {
+        q: "6. แนวโน้ม IE1 ของธาตุคาบที่ 2 ข้อใดถูกต้อง?",
+        options: ["Li < Be < B", "Be > B และ Mg > Al", "N < O", "Ne < F"],
+        ans: 1,
+        detail: "หมู่ 2 (s2) มีการจัดเรียงที่เสถียรกว่าหมู่ 3 (p1) ทำให้ดึงอิเล็กตรอนออกยากกว่าในคาบเดียวกัน"
+    },
+    {
+        q: "7. H2SO4 เข้มข้น 98% โดยมวล (d=1.84 g/cm3) ต้องการเตรียม 0.5 M ปริมาตร 1 L ต้องใช้กรดกี่ cm3?",
+        options: ["18.4 cm3", "27.2 cm3", "54.3 cm3", "100.0 cm3"],
+        ans: 1,
+        detail: "เปลี่ยน % เป็น M ได้ 18.4 M จากนั้นใช้สูตร M1V1 = M2V2 จะได้ปริมาตรประมาณ 27.17 cm3"
+    },
+    {
+        q: "8. สารในข้อใดมีจุดเดือดสูงผิดปกติเนื่องจาก 'พันธะไฮโดรเจน'?",
+        options: ["H2S", "HCl", "CH4", "NH3"],
+        ans: 3,
+        detail: "NH3 มีพันธะ N-H ซึ่งทำให้เกิดพันธะไฮโดรเจนได้ ส่งผลให้แรงยึดเหนี่ยวสูงกว่าโมเลกุลอื่นที่มีมวลใกล้เคียงกัน"
+    },
+    {
+        q: "9. ธาตุ X เลขอะตอม 35 เมื่อกลายเป็น X- จะมีการจัดเรียงอิเล็กตรอนเหมือนธาตุใด?",
+        options: ["Ar", "Kr", "Xe", "Rn"],
+        ans: 1,
+        detail: "เลขอะตอม 35 คือ Br เมื่อรับ 1 อิเล็กตรอนจะเป็น 36 ซึ่งเท่ากับ Kr (แก๊สเฉื่อยคาบ 4)"
+    },
+    {
+        q: "10. ข้อใดมีทั้งพันธะไอออนิกและโคเวเลนต์ในสารประกอบเดียวกัน?",
+        options: ["NH4Cl", "CCl4", "KCl", "CO2"],
+        ans: 0,
+        detail: "มีไอออนิกระหว่าง NH4+ และ Cl- และมีโคเวเลนต์ภายในไอออน NH4+"
+    },
+    {
+        q: "11. ถ้าลืมไล่ฟองอากาศที่ปลายบิวเรตต์ก่อนไทเทรต ผลคำนวณความเข้มข้นตัวอย่างจะเป็นอย่างไร?",
+        options: ["ต่ำกว่าจริง", "สูงกว่าจริง", "เท่าเดิม", "สรุปไม่ได้"],
+        ans: 1,
+        detail: "ปริมาตรฟองอากาศที่หลุดไปจะถูกนับรวมเป็นปริมาตรสารละลายมาตรฐาน ทำให้ดูเหมือนใช้สารมากเกินจริง"
+    },
+    {
+        q: "12. ตามทฤษฎี Bohr ข้อใด 'ผิด' เกี่ยวกับระดับพลังงาน?",
+        options: ["n=1 พลังงานต่ำสุด", "n มากขึ้น พลังงานรวมมากขึ้น", "n มากขึ้น ช่องว่างระหว่างชั้นกว้างขึ้น", "คายพลังงานเมื่อลดระดับชั้น"],
+        ans: 2,
+        detail: "เมื่อ n เพิ่มขึ้น ระดับพลังงานจะอยู่ชิดกันมากขึ้น (Energy Gap แคบลง)"
+    },
+    {
+        q: "13. การเรียงขนาดไอออนจาก 'ใหญ่ไปเล็ก' ข้อใดถูกต้อง?",
+        options: ["O2- > F- > Na+ > Mg2+", "Mg2+ > Na+ > F- > O2-", "Na+ > Mg2+ > O2- > F-", "F- > O2- > Mg2+ > Na+"],
+        ans: 0,
+        detail: "ทั้งหมดมี 10e- เท่ากัน ไอออนที่มีโปรตอนน้อยที่สุด (O) จะดึงอิเล็กตรอนได้น้อยที่สุด ขนาดจึงใหญ่ที่สุด"
+    },
+    {
+        q: "14. โมเลกุล AB2 อะตอมกลาง A อยู่หมู่ 16, B อยู่หมู่ 17 จะมีรูปร่างโมเลกุลอย่างไร?",
+        options: ["เส้นตรง", "มุมงอ", "ทรงสี่หน้า", "สามเหลี่ยมแบนราบ"],
+        ans: 1,
+        detail: "A หมู่ 16 มี 6e- สร้างพันธะ 2 เหลือคู่โดดเดี่ยว 2 คู่ (AX2E2) รูปร่างจึงเป็นมุมงอ"
+    },
+    {
+        q: "15. จำนวนโปรตอน นิวตรอน และอิเล็กตรอนของ 56_26 Fe3+ คือ?",
+        options: ["26, 30, 26", "26, 56, 23", "26, 30, 23", "30, 26, 23"],
+        ans: 2,
+        detail: "p=26, n=56-26=30, e-=26-3=23"
+    },
+    {
+        q: "16. สารละลายน้ำตาล 10% w/v (d=1.1 g/cm3) มีความเข้มข้นกี่โมแลล (m)?",
+        options: ["0.29 m", "0.34 m", "0.10 m", "0.50 m"],
+        ans: 0,
+        detail: "น้ำตาล 10g ในน้ำ 100g (คำนวณจากความหนาแน่น) จะได้ 0.29 mol/kg"
+    },
+    {
+        q: "17. เผาโพรเพน 2.2 g ต้องใช้ O2 กี่ลิตรที่ STP? (C3H8 + 5O2 -> 3CO2 + 4H2O)",
+        options: ["1.12 L", "2.80 L", "5.60 L", "11.2 L"],
+        ans: 2,
+        detail: "C3H8 0.05 mol ต้องใช้ O2 0.25 mol (สัดส่วน 1:5) คิดเป็น 5.6 ลิตร"
+    },
+    {
+        q: "18. สารประกอบ A 40% คือ AB3 ถ้าสารประกอบชนิดที่สองมี A 50% จะมีสูตรอย่างไร?",
+        options: ["AB", "A2B", "AB2", "A2B3"],
+        ans: 2,
+        detail: "เทียบสัดส่วนพหุคูณ มวล B ที่รวมกับ A จะลดลงเหลือ 2 ใน 3 ของสารแรก จึงได้ AB2"
+    },
+    {
+        q: "19. แก๊ส He 4.0 g ในถัง 10 L ที่ 27 C มีความดันกี่ atm? (R=0.082)",
+        options: ["1.23 atm", "2.46 atm", "4.92 atm", "24.6 atm"],
+        ans: 1,
+        detail: "n=1, T=300K, V=10. P = (1 * 0.082 * 300) / 10 = 2.46 atm"
+    },
+    {
+        q: "20. การจัดเรียงอิเล็กตรอนของโครเมียม (Z=24) คือข้อใด?",
+        options: ["[Ar] 4s2 3d4", "[Ar] 4s1 3d5", "[Ar] 3d6", "[Ar] 4s2 3d6"],
+        ans: 1,
+        detail: "ข้อยกเว้น: มีการบรรจุแบบ Half-filled (d5) เพื่อให้มีความเสถียรมากกว่าปกติ"
+    },
+    {
+        q: "21. โมเลกุลใดไม่มีขั้วแต่มีพันธะมีขั้ว?",
+        options: ["H2O", "NH3", "CH4", "HF"],
+        ans: 2,
+        detail: "CH4 เป็นทรงสี่หน้าสมมาตร ขั้วของพันธะ C-H จึงหักล้างกันหมด"
+    },
+    {
+        q: "22. ข้อใดมีจำนวนอะตอมมากที่สุด?",
+        options: ["แก๊ส H2 2.0 g", "แก๊ส He 4.0 g", "น้ำ 18 g", "แก๊ส O2 32 g"],
+        ans: 2,
+        detail: "น้ำ 18g คือ 1 mol molecule ซึ่งมี 3 mol atoms มากกว่าข้ออื่นที่มีแค่ 1-2 mol atoms"
+    },
+    {
+        q: "23. โลหะนำความร้อนได้ดีเพราะอะไร?",
+        options: ["พันธะไอออนิกแข็งแรง", "ทะเลอิเล็กตรอนเคลื่อนที่อิสระ", "แรงแวนเดอร์วาลส์", "โครงสร้างร่างตาข่าย"],
+        ans: 1,
+        detail: "อิเล็กตรอนที่เคลื่อนที่ได้อิสระทั่วทั้งก้อนโลหะ (Delocalized electrons) ช่วยนำความร้อนและไฟฟ้า"
+    },
+    {
+        q: "24. โมเลกุลใดมีรูปร่าง 'สามเหลี่ยมแบนราบ'?",
+        options: ["NH3", "BF3", "ClF3", "PCl3"],
+        ans: 1,
+        detail: "B (หมู่ 13) สร้าง 3 พันธะเดี่ยว ไม่มีคู่โดดเดี่ยว ได้ AX3"
+    },
+    {
+        q: "25. กรดแก่ pH=2 เจือจาง 100 เท่า (เติมน้ำจาก 10 เป็น 1000 cm3) จะมี pH ใหม่เท่าใด?",
+        options: ["3", "4", "5", "1"],
+        ans: 1,
+        detail: "เจือจาง 100 เท่า (10^2) ทำให้ความเข้มข้น H+ ลดลง 100 เท่า pH จึงเพิ่มขึ้น 2 หน่วย"
+    }
+];
+
+function renderQuiz() {
+    const area = document.getElementById('quiz-area');
+    quizData.forEach((item, qIdx) => {
+        const block = document.createElement('div');
+        block.className = 'question-block';
+
+        const qText = document.createElement('span');
+        qText.className = 'question-text';
+        qText.innerText = item.q;
+        block.appendChild(qText);
+
+        const optContainer = document.createElement('div');
+        optContainer.className = 'options';
+        optContainer.id = `opts-${qIdx}`;
+
+        item.options.forEach((opt, oIdx) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => selectAnswer(qIdx, oIdx);
+            optContainer.appendChild(btn);
+        });
+
+        block.appendChild(optContainer);
+
+        const exp = document.createElement('div');
+        exp.className = 'explanation';
+        exp.id = `exp-${qIdx}`;
+        exp.innerHTML = `<strong>เฉลย:</strong> ${item.options[item.ans]}<br><br><strong>วิธีคิด:</strong> ${item.detail}`;
+        block.appendChild(exp);
+
+        area.appendChild(block);
+    });
+}
+
+function selectAnswer(qIdx, selectedIdx) {
+    const container = document.getElementById(`opts-${qIdx}`);
+    const btns = container.getElementsByClassName('option-btn');
+    const correctIdx = quizData[qIdx].ans;
+
+    // Lock interaction
+    for (let btn of btns) {
+        btn.classList.add('disabled');
+    }
+
+    // Feedback
+    if (selectedIdx === correctIdx) {
+        btns[selectedIdx].classList.add('correct');
+    } else {
+        btns[selectedIdx].classList.add('wrong');
+        btns[correctIdx].classList.add('correct');
+    }
+
+    // Show Explanation
+    document.getElementById(`exp-${qIdx}`).style.display = 'block';
+}
+
+renderQuiz();
+</script>
+
+</body>
+</html>
