@@ -1,0 +1,452 @@
+import os
+
+# Define the HTML content for the Chemistry Exam
+html_content = """
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ข้อสอบวิชาเคมี: พันธะเคมี (25 ข้อ)</title>
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f7f6;
+        }
+        .header {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .question-card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 5px solid #3498db;
+        }
+        .question-text {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        .options {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .options li {
+            padding: 8px 15px;
+            margin: 5px 0;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .solution-box {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e8f4fd;
+            border-radius: 5px;
+            border: 1px dashed #3498db;
+        }
+        .correct-answer {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .source {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .formula {
+            font-family: 'Courier New', Courier, monospace;
+            background: #eee;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        @media print {
+            body { background: white; }
+            .question-card { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>คลังข้อสอบวิชาเคมี: เรื่อง พันธะเคมี</h1>
+    <p>รวบรวมจากแนวข้อสอบจริง A-Level และ สอวน. (25 ข้อ พร้อมเฉลยละเอียด)</p>
+</div>
+
+<div class="question-card">
+    <div class="question-text">1. สารในข้อใดที่มีพันธะไอออนิกแข็งแรงที่สุด (พิจารณาจากพลังงานแลตทิซ)? <span class="source">(สอวน. ค่าย 1)</span></div>
+    <ul class="options">
+        <li>ก. NaCl</li>
+        <li>ข. MgO</li>
+        <li>ค. KCl</li>
+        <li>ง. BaCl<sub>2</sub></li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ข. MgO</span><br>
+        <strong>วิธีทำ:</strong> ความแข็งแรงของพันธะไอออนิกแปรผันตามพลังงานแลตทิซ (U) ซึ่งแปรผันตรงกับผลคูณของประจุ (Q1Q2) และแปรผกผันกับระยะห่างระหว่างไอออน (d) 
+        เนื่องจาก Mg<sup>2+</sup> และ O<sup>2-</sup> มีประจุสูง (+2, -2) เมื่อเทียบกับตัวเลือกอื่นที่มีประจุเพียง +1 หรือ -1 แรงดึงดูดจึงมากที่สุด
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">2. สารในข้อใดมีรูปร่างโมเลกุลเหมือนกันทั้งหมด? <span class="source">(A-Level 66)</span></div>
+    <ul class="options">
+        <li>ก. CO<sub>2</sub>, BeCl<sub>2</sub>, H<sub>2</sub>O</li>
+        <li>ข. NH<sub>3</sub>, PH<sub>3</sub>, BF<sub>3</sub></li>
+        <li>ค. CH<sub>4</sub>, SiH<sub>4</sub>, NH<sub>4</sub><sup>+</sup></li>
+        <li>ง. PCl<sub>5</sub>, SF<sub>6</sub>, XeF<sub>4</sub></li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ค. CH<sub>4</sub>, SiH<sub>4</sub>, NH<sub>4</sub><sup>+</sup></span><br>
+        <strong>วิธีทำ:</strong> ทั้งสามชนิดมีโครงสร้างแบบ AX<sub>4</sub> (ไม่มีอิเล็กตรอนคู่โดดเดี่ยวที่อะตอมกลาง) จึงมีรูปร่างเป็นทรงสี่หน้า (Tetrahedral) เหมือนกันทั้งหมด
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">3. พันธะในข้อใดมีความเป็นขั้ว (Polarity) มากที่สุด? <span class="source">(สอวน. ค่าย 1)</span></div>
+    <ul class="options">
+        <li>ก. C-O</li>
+        <li>ข. C-N</li>
+        <li>ค. C-F</li>
+        <li>ง. C-H</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ค. C-F</span><br>
+        <strong>วิธีทำ:</strong> ความเป็นขั้วของพันธะพิจารณาจากผลต่างของค่า EN (Electronegativity) เนื่องจาก F มีค่า EN สูงที่สุดในตารางธาตุ ผลต่างระหว่าง C กับ F จึงสูงที่สุดในกลุ่มนี้
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">4. โมเลกุลใดต่อไปนี้เป็นโมเลกุลไม่มีขั้ว แต่ประกอบด้วยพันธะที่มีขั้ว? <span class="source">(A-Level 65)</span></div>
+    <ul class="options">
+        <li>ก. NH<sub>3</sub></li>
+        <li>ข. CHCl<sub>3</sub></li>
+        <li>ค. CCl<sub>4</sub></li>
+        <li>ง. SO<sub>2</sub></li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ค. CCl<sub>4</sub></span><br>
+        <strong>วิธีทำ:</strong> CCl<sub>4</sub> มีรูปร่างทรงสี่หน้าสมมาตร ทำให้อะตอม Cl ดึงดูดอิเล็กตรอนในทิศทางที่หักล้างกันหมดพอดี สภาพขั้วลัพธ์จึงเป็นศูนย์
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">5. การเรียงลำดับมุมพันธะในข้อใดจากกว้างไปแคบได้ถูกต้อง? <span class="source">(แนวข้อสอบวิชาสามัญ)</span></div>
+    <ul class="options">
+        <li>ก. CH<sub>4</sub> > NH<sub>3</sub> > H<sub>2</sub>O</li>
+        <li>ข. H<sub>2</sub>O > NH<sub>3</sub> > CH<sub>4</sub></li>
+        <li>ค. NH<sub>3</sub> > CH<sub>4</sub> > H<sub>2</sub>O</li>
+        <li>ง. CH<sub>4</sub> > H<sub>2</sub>O > NH<sub>3</sub></li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ก. CH<sub>4</sub> > NH<sub>3</sub> > H<sub>2</sub>O</span><br>
+        <strong>วิธีทำ:</strong> พิจารณาแรงผลักของอิเล็กตรอนคู่โดดเดี่ยว CH<sub>4</sub> (ไม่มี) = 109.5°, NH<sub>3</sub> (มี 1 คู่) ≈ 107°, H<sub>2</sub>O (มี 2 คู่) ≈ 104.5°
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">6. สารประกอบใดที่มีทั้งพันธะไอออนิกและพันธะโคเวเลนต์อยู่ร่วมกัน? <span class="source">(สอวน. ค่าย 1)</span></div>
+    <ul class="options">
+        <li>ก. CaCl<sub>2</sub></li>
+        <li>ข. KNO<sub>3</sub></li>
+        <li>ค. CO<sub>2</sub></li>
+        <li>ง. CH<sub>4</sub></li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ข. KNO<sub>3</sub></span><br>
+        <strong>วิธีทำ:</strong> โพแทสเซียมไนเตรตยึดกันระหว่าง K<sup>+</sup> กับ NO<sub>3</sub><sup>-</sup> ด้วยพันธะไอออนิก แต่ภายในกลุ่ม NO<sub>3</sub><sup>-</sup> อะตอม N และ O ยึดกันด้วยพันธะโคเวเลนต์
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">7. สมบัติในข้อใดเป็นลักษณะเฉพาะของสารโครงผลึกร่างตาข่าย? <span class="source">(A-Level 64)</span></div>
+    <ul class="options">
+        <li>ก. จุดเดือดต่ำ ระเหยง่าย</li>
+        <li>ข. นำไฟฟ้าได้ดีในสถานะของแข็งทุกชนิด</li>
+        <li>ค. มีจุดหลอมเหลวสูงมากและไม่ละลายในตัวทำละลายทั่วไป</li>
+        <li>ง. มีแรงยึดเหนี่ยวเป็นแรงแวนเดอร์วาลส์</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ค. มีจุดหลอมเหลวสูงมากและไม่ละลายในตัวทำละลายทั่วไป</span><br>
+        <strong>วิธีทำ:</strong> เนื่องจากอะตอมยึดเหนี่ยวกันด้วยพันธะโคเวเลนต์ต่อเนื่องกันไปเป็นโครงสร้างขนาดใหญ่ (เช่น เพชร, ควอตซ์) ทำให้แข็งแรงมากและทนความร้อนสูง
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">8. จำนวนอิเล็กตรอนคู่โดดเดี่ยวรอบอะตอมกลางของโมเลกุล XeF<sub>4</sub> มีกี่คู่? <span class="source">(สอวน. ค่าย 1)</span></div>
+    <ul class="options">
+        <li>ก. 0 คู่</li>
+        <li>ข. 1 คู่</li>
+        <li>ค. 2 คู่</li>
+        <li>ง. 3 คู่</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ค. 2 คู่</span><br>
+        <strong>วิธีทำ:</strong> Xe อยู่หมู่ 8 มีเวเลนซ์ 8 ตัว สร้างพันธะเดี่ยวกับ F 4 พันธะ ใช้อิเล็กตรอนไป 4 ตัว เหลืออีก 4 ตัว จัดเป็นอิเล็กตรอนคู่โดดเดี่ยว 2 คู่ (AX<sub>4</sub>E<sub>2</sub>)
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">9. ไฮบริดไดเซชัน (Hybridization) ของอะตอมกลางในโมเลกุล SF<sub>6</sub> คือแบบใด? <span class="source">(แนวข้อสอบ PAT2)</span></div>
+    <ul class="options">
+        <li>ก. sp<sup>3</sup></li>
+        <li>ข. sp<sup>3</sup>d</li>
+        <li>ค. sp<sup>3</sup>d<sup>2</sup></li>
+        <li>ง. sp<sup>2</sup></li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ค. sp<sup>3</sup>d<sup>2</sup></span><br>
+        <strong>วิธีทำ:</strong> S สร้าง 6 พันธะและไม่มีคู่โดดเดี่ยว รวม 6 กลุ่มอิเล็กตรอน ต้องใช้ออร์บิทัลผสม 6 อัน ได้แก่ s 1 อัน, p 3 อัน และ d 2 อัน
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">10. สารในข้อใดมีการเกิดพันธะโคออร์ดิเนตโคเวเลนต์ (Coordinate Covalent)? <span class="source">(สอวน. ค่าย 1)</span></div>
+    <ul class="options">
+        <li>ก. NH<sub>4</sub><sup>+</sup></li>
+        <li>ข. CH<sub>4</sub></li>
+        <li>ค. NaCl</li>
+        <li>ง. Cl<sub>2</sub></li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ก. NH<sub>4</sub><sup>+</sup></span><br>
+        <strong>วิธีทำ:</strong> แอมโมเนียมไอออนเกิดจาก NH<sub>3</sub> ใช้อิเล็กตรอนคู่โดดเดี่ยวของ N สร้างพันธะกับ H<sup>+</sup> ที่ว่างเปล่า โดย N เป็นผู้ให้อิเล็กตรอนทั้งคู่
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">11. โมเลกุลใดมีรูปร่างเป็น "ทรงแปดหน้า" (Octahedral)? <span class="source">(A-Level 65)</span></div>
+    <ul class="options">
+        <li>ก. PCl<sub>5</sub></li>
+        <li>ข. SF<sub>6</sub></li>
+        <li>ค. XeF<sub>4</sub></li>
+        <li>ง. IF<sub>5</sub></li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ข. SF<sub>6</sub></span><br>
+        <strong>วิธีทำ:</strong> อะตอมกลางสร้าง 6 พันธะ ไม่มีอิเล็กตรอนคู่โดดเดี่ยว (AX<sub>6</sub>) ตามทฤษฎี VSEPR จะมีรูปร่างเป็นทรงแปดหน้า
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">12. ข้อใดกล่าวถึงพันธะโลหะ (Metallic bond) ได้ถูกต้องที่สุด? <span class="source">(สอวน. ค่าย 1)</span></div>
+    <ul class="options">
+        <li>ก. เกิดจากการใช้อิเล็กตรอนร่วมกันระหว่างสองอะตอม</li>
+        <li>ข. เกิดจากแรงดึงดูดระหว่างไอออนบวกกับทะเลอิเล็กตรอน</li>
+        <li>ค. ทำให้โลหะเปราะและแตกง่าย</li>
+        <li>ง. เป็นแรงดึงดูดระหว่างไอออนบวกและไอออนลบ</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ข. เกิดจากแรงดึงดูดระหว่างไอออนบวกกับทะเลอิเล็กตรอน</span><br>
+        <strong>วิธีทำ:</strong> เวเลนซ์อิเล็กตรอนของโลหะหลุดจากอะตอมและเคลื่อนที่ได้อย่างอิสระไปทั่วก้อนโลหะ (Sea of electrons) คอยยึดไอออนบวกของโลหะไว้ด้วยกัน
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">13. รูปร่างโมเลกุลในข้อใดที่มีอะตอมล้อมรอบอยู่ใน "ระนาบเดียวกัน" ทั้งหมด? <span class="source">(A-Level 66)</span></div>
+    <ul class="options">
+        <li>ก. CH<sub>4</sub></li>
+        <li>ข. NH<sub>3</sub></li>
+        <li>ค. BF<sub>3</sub></li>
+        <li>ง. PCl<sub>5</sub></li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ค. BF<sub>3</sub></span><br>
+        <strong>วิธีทำ:</strong> BF<sub>3</sub> เป็นสามเหลี่ยมแบนราบ (Trigonal Planar) อะตอมล้อมรอบทั้งสามอยู่บนระนาบเดียวกันรอบอะตอมกลาง B
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">14. สารในข้อใดมีจุดเดือดสูงที่สุด? <span class="source">(สอวน. ค่าย 1)</span></div>
+    <ul class="options">
+        <li>ก. H<sub>2</sub></li>
+        <li>ข. HCl</li>
+        <li>ค. H<sub>2</sub>O</li>
+        <li>ง. H<sub>2</sub>S</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ค. H<sub>2</sub>O</span><br>
+        <strong>วิธีทำ:</strong> น้ำมีพันธะไฮโดรเจน (Hydrogen Bond) ซึ่งเป็นแรงยึดเหนี่ยวระหว่างโมเลกุลที่แข็งแรงกว่าแรงแวนเดอร์วาลส์และแรงดึงดูดระหว่างขั้วทั่วไป
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">15. ลำดับความยาวพันธะข้อใดถูกต้อง? <span class="source">(แนวข้อสอบวิชาสามัญ)</span></div>
+    <ul class="options">
+        <li>ก. พันธะเดี่ยว > พันธะคู่ > พันธะสาม</li>
+        <li>ข. พันธะสาม > พันธะคู่ > พันธะเดี่ยว</li>
+        <li>ค. พันธะคู่ > พันธะเดี่ยว > พันธะสาม</li>
+        <li>ง. พันธะเดี่ยว > พันธะสาม > พันธะคู่</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ก. พันธะเดี่ยว > พันธะคู่ > พันธะสาม</span><br>
+        <strong>วิธีทำ:</strong> ยิ่งใช้คู่ร่วมอิเล็กตรอนมาก แรงดึงดูดนิวเคลียสจะยิ่งมาก ทำให้อะตอมเข้าใกล้กันมากขึ้น พันธะจึงสั้นลง (พันธะสามสั้นที่สุด แข็งแรงที่สุด)
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">16. โมเลกุล CO<sub>2</sub> มีลักษณะพันธะระหว่างอะตอมเป็นแบบใด? <span class="source">(สอวน. ค่าย 1)</span></div>
+    <ul class="options">
+        <li>ก. พันธะเดี่ยว 2 พันธะ</li>
+        <li>ข. พันธะคู่ 2 พันธะ</li>
+        <li>ค. พันธะสาม 2 พันธะ</li>
+        <li>ง. พันธะเดี่ยว 1 พันธะ และพันธะคู่ 1 พันธะ</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ข. พันธะคู่ 2 พันธะ</span><br>
+        <strong>วิธีทำ:</strong> เพื่อให้ C และ O ครบออกเตต (8 อิเล็กตรอน) C จะสร้างพันธะคู่กับ O ทั้งสองฝั่ง (O=C=O)
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">17. เรโซแนนซ์ (Resonance) หมายถึงอะไรในทางเคมี? <span class="source">(แนวข้อสอบ PAT2)</span></div>
+    <ul class="options">
+        <li>ก. การสลับที่ของอะตอมในโมเลกุล</li>
+        <li>ข. การที่โมเลกุลเขียนโครงสร้างเลออิสได้มากกว่า 1 แบบ</li>
+        <li>ค. การระเบิดของพันธะเคมี</li>
+        <li>ง. การนำไฟฟ้าของสารละลาย</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ข. การที่โมเลกุลเขียนโครงสร้างเลออิสได้มากกว่า 1 แบบ</span><br>
+        <strong>วิธีทำ:</strong> เกิดขึ้นเมื่อตำแหน่งของอิเล็กตรอน (พันธะคู่/คี่) สามารถเคลื่อนที่หรือกระจายตัวได้ในโครงสร้างที่สมมาตร เช่น O<sub>3</sub> หรือ C<sub>6</sub>H<sub>6</sub>
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">18. ข้อใด "ไม่ใช่" สมบัติทั่วไปของสารประกอบไอออนิก? <span class="source">(A-Level 64)</span></div>
+    <ul class="options">
+        <li>ก. มีจุดหลอมเหลวสูง</li>
+        <li>ข. นำไฟฟ้าได้ดีเมื่อเป็นของแข็ง</li>
+        <li>ค. เปราะและแตกง่าย</li>
+        <li>ง. มักจะละลายน้ำได้</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ข. นำไฟฟ้าได้ดีเมื่อเป็นของแข็ง</span><br>
+        <strong>วิธีทำ:</strong> ในสถานะของแข็ง ไอออนถูกยึดแน่นในโครงผลึก เคลื่อนที่ไม่ได้จึงไม่นำไฟฟ้า จะนำไฟฟ้าได้ต่อเมื่อหลอมเหลวหรือละลายน้ำ
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">19. โมเลกุลของน้ำ (H<sub>2</sub>O) มีกี่พันธะกี่คู่โดดเดี่ยวที่อะตอมกลาง? <span class="source">(สอวน. ค่าย 1)</span></div>
+    <ul class="options">
+        <li>ก. 2 พันธะ 0 คู่โดดเดี่ยว</li>
+        <li>ข. 2 พันธะ 1 คู่โดดเดี่ยว</li>
+        <li>ค. 2 พันธะ 2 คู่โดดเดี่ยว</li>
+        <li>ง. 2 พันธะ 3 คู่โดดเดี่ยว</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ค. 2 พันธะ 2 คู่โดดเดี่ยว</span><br>
+        <strong>วิธีทำ:</strong> O อยู่หมู่ 6 ใช้ 2 อิเล็กตรอนสร้างพันธะกับ H สองตัว เหลืออิเล็กตรอน 4 ตัว จัดเป็น 2 คู่โดดเดี่ยว
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">20. สารในข้อใดมีแรงยึดเหนี่ยวระหว่างโมเลกุลเป็น "แรงลอนดอน" เพียงอย่างเดียว? <span class="source">(A-Level 66)</span></div>
+    <ul class="options">
+        <li>ก. NH<sub>3</sub></li>
+        <li>ข. CH<sub>4</sub></li>
+        <li>ค. HF</li>
+        <li>ง. CH<sub>3</sub>Cl</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ข. CH<sub>4</sub></span><br>
+        <strong>วิธีทำ:</strong> CH<sub>4</sub> เป็นโมเลกุลไม่มีขั้วสมบูรณ์ แรงดึงดูดเพียงอย่างเดียวที่มีคือแรงลอนดอน (London Dispersion Force)
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">21. มุมพันธะของรูปร่างโมเลกุลแบบสามเหลี่ยมแบนราบมีค่ากี่องศา? <span class="source">(สอวน. ค่าย 1)</span></div>
+    <ul class="options">
+        <li>ก. 90 องศา</li>
+        <li>ข. 109.5 องศา</li>
+        <li>ค. 120 องศา</li>
+        <li>ง. 180 องศา</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ค. 120 องศา</span><br>
+        <strong>วิธีทำ:</strong> 360 องศาหารด้วย 3 ทิศทางในระนาบเดียวกัน ได้มุม 120 องศาพอดี
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">22. สารโครงผลึกร่างตาข่ายชนิดใดที่นำไฟฟ้าได้? <span class="source">(A-Level 65)</span></div>
+    <ul class="options">
+        <li>ก. เพชร</li>
+        <li>ข. แกรไฟต์</li>
+        <li>ค. ควอตซ์</li>
+        <li>ง. ทราย</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ข. แกรไฟต์</span><br>
+        <strong>วิธีทำ:</strong> แกรไฟต์ใช้อิเล็กตรอนเพียง 3 ตัวสร้างพันธะในระนาบ เหลืออีก 1 ตัวที่สามารถเคลื่อนที่ข้ามชั้นได้ ทำให้นำไฟฟ้าได้ในระนาบ
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">23. พันธะในโมเลกุล N<sub>2</sub> เป็นพันธะชนิดใด? <span class="source">(สอวน. ค่าย 1)</span></div>
+    <ul class="options">
+        <li>ก. พันธะเดี่ยว</li>
+        <li>ข. พันธะคู่</li>
+        <li>ค. พันธะสาม</li>
+        <li>ง. พันธะไอออนิก</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ค. พันธะสาม</span><br>
+        <strong>วิธีทำ:</strong> ไนโตรเจนอยู่หมู่ 5 ต้องการอีก 3 อิเล็กตรอนจึงจะครบออกเตต จึงต้องแชร์อิเล็กตรอนกัน 3 คู่
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">24. โมเลกุล BeCl<sub>2</sub> มีรูปร่างโมเลกุลแบบใด? <span class="source">(A-Level 64)</span></div>
+    <ul class="options">
+        <li>ก. เส้นตรง</li>
+        <li>ข. มุมงอ</li>
+        <li>ค. ทรงสี่หน้า</li>
+        <li>ง. สามเหลี่ยมแบนราบ</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ก. เส้นตรง</span><br>
+        <strong>วิธีทำ:</strong> Be มี 2 เวเลนซ์อิเล็กตรอน สร้าง 2 พันธะไม่มีคู่โดดเดี่ยว (AX<sub>2</sub>) อะตอมจะผลักกันให้อยู่ไกลที่สุดคือมุม 180 องศา (เส้นตรง)
+    </div>
+</div>
+
+<div class="question-card">
+    <div class="question-text">25. สภาพขั้วของโมเลกุลพิจารณาจากสิ่งใดเป็นหลัก? <span class="source">(แนวข้อสอบวิชาสามัญ)</span></div>
+    <ul class="options">
+        <li>ก. มวลโมเลกุล</li>
+        <li>ข. ขนาดอะตอม</li>
+        <li>ค. ผลรวมเวกเตอร์ของขั้วพันธะ</li>
+        <li>ง. จำนวนอิเล็กตรอนทั้งหมด</li>
+    </ul>
+    <div class="solution-box">
+        <strong>เฉลย:</strong> <span class="correct-answer">ค. ผลรวมเวกเตอร์ของขั้วพันธะ</span><br>
+        <strong>วิธีทำ:</strong> สภาพขั้วลัพธ์ของโมเลกุลเกิดจากการรวมขั้วของแต่ละพันธะตามทิศทางในรูปร่างโมเลกุล (แบบเวกเตอร์)
+    </div>
+</div>
+
+<footer style="text-align: center; margin-top: 50px; color: #7f8c8d;">
+    <p>&copy; 2026 เอกสารเตรียมสอบเคมี | เนื้อหาอ้างอิงตามหลักสูตร สสวท.</p>
+</footer>
+
+</body>
+</html>
+"""
+
+# Save the content to an HTML file
+file_path = "chemistry_bonding_exam_25.html"
+with open(file_path, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"File created at: {file_path}")
